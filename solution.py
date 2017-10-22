@@ -157,20 +157,15 @@ def solve(grid):
     Returns:
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
-    values = reduce_puzzle(values)
-    if values is False:
-        return False
-    if all(len(values[s]) == 1 for s in boxes): 
-        return values
-
-    n,s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
-
-    for value in values[s]:
-        new_sudoku = values.copy()
-        new_sudoku[s] = value
-        attempt = search(new_sudoku)
-        if attempt:
-            return attempt    
+    """
+    Find the solution to a Sudoku grid.
+    Args:
+        grid(string): a string representing a sudoku grid.
+            Example: '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+    Returns:
+        The dictionary representation of the final sudoku grid. False if no solution exists.
+    """
+    return search(grid_values(grid))  
 
 if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
