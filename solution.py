@@ -35,15 +35,6 @@ unitlist = row_units + column_units + square_units + diagonal_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
 
-def remove_duplicates(values):
-    output = []
-    seen = set()
-    for value in values:
-        if value not in seen:
-            output.append(value)
-            seen.add(value)
-    return seen
-
 def naked_twins(values):
     """Eliminate values using the naked twins strategy.
     Args:
@@ -52,6 +43,7 @@ def naked_twins(values):
     Returns:
         the values dictionary with the naked twins eliminated from peers.
     """
+    # Find all instances of naked twins
     for unit in unitlist:
         twins = []
         seen = set()
@@ -60,12 +52,12 @@ def naked_twins(values):
                 seen.add(values[box])
             else:
                 twins.add(box)
-    # Find all instances of naked twins
+    # Eliminate the naked twins as possibilites for their peers
         for box in twins:
             for peer in peers[box]:
                 if values[peer] != values[box]:
                     values[peer] = values[peer].replace(values[box],'')
-    # Eliminate the naked twins as possibilities for their peers
+
     return values
 
 def grid_values(grid):
@@ -149,14 +141,6 @@ def search(values):
             return attempt
 
 def solve(grid):
-    """
-    Find the solution to a Sudoku grid.
-    Args:
-        grid(string): a string representing a sudoku grid.
-            Example: '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
-    Returns:
-        The dictionary representation of the final sudoku grid. False if no solution exists.
-    """
     """
     Find the solution to a Sudoku grid.
     Args:
