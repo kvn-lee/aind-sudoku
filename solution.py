@@ -151,7 +151,7 @@ def solve(grid):
     """
     values = search(grid_values(grid))  
     for box in boxes:
-        values = assign_value(values, box, values[box])
+        values = assign_value(values, box, values[box]) #assigns values to assignments
     return values
 
 if __name__ == '__main__':
