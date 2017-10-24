@@ -52,11 +52,11 @@ def naked_twins(values):
                 seen.add(values[box])
             else:
                 twins.append(box)
-    # Eliminate the naked twins as possibilites for their peers
-    for box in twins:
-        for peer in peers[box]:
-            if values[peer] != values[box]:
-                values[peer] = values[peer].replace(values[box],'')
+     # Eliminate the naked twins as possibilites for their peers
+        for box in twins:
+            for peer in peers[box]:
+                if values[peer] != values[box]:
+                    values = assign_values(values, peer, values[peer].replace(values[box], ''))
     return values
 
 def grid_values(grid):
@@ -98,7 +98,8 @@ def eliminate(values):
     for box in solved_values:
         digit = values[box]
         for peer in peers[box]:
-            values = assign_value(values, peer, values[peer].replace(digit,''))
+            if len(values[peer]) != 1:
+                values = assign_value(values, peer, values[peer].replace(digit,''))
     return values
 
 def only_choice(values):
@@ -148,7 +149,6 @@ def solve(grid):
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
     values = search(grid_values(grid))
-    assignments = values.copy()
     return values
 
 if __name__ == '__main__':
