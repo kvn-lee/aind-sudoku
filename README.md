@@ -3,11 +3,11 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: First, we identify the naked twins. Once identifying the naked twins, we can constrain the remove the naked twins from the possibilities of the naked twins' units. 
+A: First, we identify the naked twins. Once identifying the naked twins, we can constrain the remove the naked twins from the possibilities of the naked twins' peers by using the eliminate and only_choice methods. 
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: We can implement the functions we created in the lecture to also solve diagonal units by including them within the unitlist. 
+A: We can implement the functions (eliminate, only_choice, and naked_twins) we created in the lecture to also solve diagonal units by including them within the unitlist. 
 
 ### Install
 

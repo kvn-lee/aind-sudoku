@@ -45,18 +45,18 @@ def naked_twins(values):
     """
     # Find all instances of naked twins
     for unit in unitlist:
-        twins = []
         seen = set()
         for box in unit:
             if values[box] not in seen:
                 seen.add(values[box])
             else:
-                twins.append(box)
-     # Eliminate the naked twins as possibilites for their peers
-        for box in twins:
-            for peer in peers[box]:
-                if values[peer] != values[box]:
-                    values = assign_values(values, peer, values[peer].replace(values[box], ''))
+                if len(values[box]) == 2:
+                    twin = values[box]
+    # Eliminate the naked twins as possibilites for their peers
+                    for box in unit:
+                        if values[box] != twin:
+                            values = assign_value(values, box, values[box].replace(twin[0], ''))
+                            values = assign_value(values, box, values[box].replace(twin[1], ''))
     return values
 
 def grid_values(grid):
